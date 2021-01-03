@@ -101,6 +101,22 @@ package model {
     totalBackoff: Long,
     multiplier: Double
   )
+  sealed trait AliyunDataHubHttpCompressType
+  final case class AliyunDataHubHttpCompressTypeLZ4() extends AliyunDataHubHttpCompressType
+  final case class AliyunDataHubHttpCompressTypeDeflate() extends AliyunDataHubHttpCompressType
+  final case class AliyunDataHubHttpConfig(
+    readTimeout: Int                                    = 10,
+    connTimeout: Int                                    = 10,
+    maxRetryCount: Int                                  = 1,
+    debugRequest: Boolean                               = false,
+    enableH2C: Boolean                                  = false,
+    enablePbCrc: Boolean                                = false,
+    compressType: Option[AliyunDataHubHttpCompressType] = None,
+    networkInterface: Option[String]                    = None,
+    proxyUri: Option[String]                            = None,
+    proxyUsername: Option[String]                       = None,
+    proxyPassword: Option[String]                       = None
+  )
   sealed trait SinkConfig
   final case class AWSConfig(accessKey: String, secretKey: String)
   final case class Kinesis(
@@ -120,6 +136,15 @@ package model {
   final case class GooglePubSub(
     googleProjectId: String,
     backoffPolicy: GooglePubSubBackoffPolicyConfig
+  ) extends SinkConfig
+  final case class AliyunDataHub(
+    endpoint: String,
+    accessId: String,
+    accessKey: String,
+    project: String,
+    userAgent: Option[String]                   = None,
+    enableBinary: Boolean                       = false,
+    httpConfig: Option[AliyunDataHubHttpConfig] = None
   ) extends SinkConfig
   final case class Kafka(
     brokers: String,

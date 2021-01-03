@@ -28,6 +28,7 @@ object Dependencies {
     // Java
     val awsSdk       = "1.11.822"
     val pubsub       = "1.108.0"
+    val datahub      = "2.18.0-public"
     val kafka        = "2.2.1"
     val nsqClient    = "1.3.0"
     val jodaTime     = "2.10.8"
@@ -60,6 +61,7 @@ object Dependencies {
     val kinesis          = "com.amazonaws"                    % "aws-java-sdk-kinesis"    % V.awsSdk
     val sqs              = "com.amazonaws"                    % "aws-java-sdk-sqs"        % V.awsSdk
     val pubsub           = "com.google.cloud"                 % "google-cloud-pubsub"     % V.pubsub
+    val datahub          = "com.aliyun.datahub"               % "aliyun-sdk-datahub"      % V.datahub
     val kafkaClients     = "org.apache.kafka"                 % "kafka-clients"           % V.kafka
     val nsqClient        = "com.snowplowanalytics"            % "nsq-java-client"         % V.nsqClient
     val jodaTime         = "joda-time"                        % "joda-time"               % V.jodaTime
