@@ -108,7 +108,7 @@ lazy val pubsub = project
 lazy val datahub = project
   .settings(moduleName := "snowplow-stream-collector-aliyun-datahub")
   .settings(allSettings)
-  .settings(packageName in Docker := "snowplow/scala-stream-collector-datahub")
+  .settings(packageName in Docker := "snowplow4aliyun/scala-stream-collector-datahub")
   .settings(libraryDependencies ++= Seq(Dependencies.Libraries.datahub))
   .enablePlugins(JavaAppPackaging, DockerPlugin)
   .dependsOn(core)

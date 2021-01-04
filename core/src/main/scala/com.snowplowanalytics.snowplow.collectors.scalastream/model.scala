@@ -143,7 +143,7 @@ package model {
     accessKey: String,
     project: String,
     userAgent: Option[String]                   = None,
-    enableBinary: Boolean                       = false,
+    enableBinary: Boolean                       = true,
     httpConfig: Option[AliyunDataHubHttpConfig] = None
   ) extends SinkConfig
   final case class Kafka(

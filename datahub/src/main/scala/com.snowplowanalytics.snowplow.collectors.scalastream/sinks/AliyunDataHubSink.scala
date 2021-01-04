@@ -100,24 +100,25 @@ object AliyunDataHubSink {
 class AliyunDataHubSink private (client: DatahubClient, project: String, topicName: String) extends Sink {
 
   // https://help.aliyun.com/document_detail/47441.html
-  // maximum size of a datahub message is 4MB
+  // maximum size of a DataHub message is 4MB
   override val MaxBytes: Int = 4000000
 
   /**
     * Store raw events in the DataHub topic
     * @param events The list of events to send
-    * @param key Not used.
+    * @param key The partition key (unused)
     */
   override def storeRawEvents(events: List[Array[Byte]], key: String): List[Array[Byte]] = {
-    if (events.nonEmpty)
+    if (events.nonEmpty) {
       log.debug(s"Writing ${events.size} Thrift records to Aliyun DataHub topic $topicName")
-    val records = events.map { event =>
-      val entry = new RecordEntry
-      entry.addAttribute("key", key)
-      entry.setRecordData(new BlobRecordData(event))
-      entry
-    }
-    client.putRecords(project, topicName, records.asJava)
+      val records = events.map { event =>
+        val entry = new RecordEntry
+        entry.addAttribute("key", key)
+        entry.setRecordData(new BlobRecordData(event))
+        entry
+      }
+      client.putRecords(project, topicName, records.asJava)
+    } else log.debug(s"Skip empty records")
     Nil
   }
 }
