@@ -220,7 +220,7 @@ collector {
 
     # Enable the chosen sink by uncommenting the appropriate configuration
     sink {
-      # Choose between kinesis, google-pub-sub, kafka, nsq, or stdout.
+      # Choose between kinesis, google-pub-sub, aliyun-data-hub, kafka, nsq, or stdout.
       # To use stdout, comment or remove everything in the "collector.streams.sink" section except
       # "enabled" which should be set to "stdout".
       enabled = kinesis
@@ -279,6 +279,16 @@ collector {
       #  multiplier = {{backoffMultiplier}}
       #}
 
+      # Or Aliyun DataHub
+      ##https://help.aliyun.com/document_detail/158778.html
+      #endpoint = {{aliyunDataHubEndpoint}}
+      #project = {{aliyunDataHubProjectId}}
+      #accessId = {{aliyunDataHubAccessId}}
+      #accessKey = {{aliyunDataHubAccessKey}}
+      ## Optional configurations:
+      #userAgent = {{aliyunDataHubUserAgent}}
+      #httpConfig = {}
+
       # Or Kafka
       #brokers = "{{kafkaBrokers}}"
       ## Number of retries to perform before giving up on sending a record
@@ -303,7 +313,7 @@ collector {
     }
 
     # Incoming events are stored in a buffer before being sent to Kinesis/Kafka.
-    # Note: Buffering is not supported by NSQ.
+    # Note: Buffering is not supported by NSQ/DataHub.
     # The buffer is emptied whenever:
     # - the number of stored records reaches record-limit or
     # - the combined size of the stored records reaches byte-limit or
